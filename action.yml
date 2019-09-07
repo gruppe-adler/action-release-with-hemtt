@@ -1,4 +1,4 @@
-name: 'Build with HEMTT'
+name: 'Release with HEMTT'
 description: 'Build your mod with HEMTT.'
 branding:
   icon: 'activity'  
