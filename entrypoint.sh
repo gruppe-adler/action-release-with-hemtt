@@ -1,6 +1,6 @@
 #!/bin/sh -l
 
-hemttPath='/hemtt'
+hemttPath='hemtt'
 
 $hemttPath --version
 

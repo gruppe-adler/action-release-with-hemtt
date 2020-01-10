@@ -1,6 +1,5 @@
-FROM alpine:3.10
+FROM hemtt/hemtt
 
 COPY entrypoint.sh /entrypoint.sh
-COPY hemtt /hemtt
 
 ENTRYPOINT ["/entrypoint.sh"]
