@@ -4,7 +4,7 @@ hemttPath='hemtt'
 
 $hemttPath --version
 
-$hemttPath build --release --force --opts all
+$hemttPath build --release --force
 
 $hemttPath zip
 
