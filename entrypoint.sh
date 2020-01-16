@@ -6,7 +6,7 @@ $hemttPath --version
 
 $hemttPath build --release --force
 
-$hemttPath zip
+$hemttPath zip {{name}}_{{version}}
 
 # set outputs
 zipName=`$hemttPath template {{name}}_{{version}}`
