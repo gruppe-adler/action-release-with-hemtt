@@ -1,5 +1,8 @@
 #!/bin/sh -l
 
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
 hemttPath='hemtt'
 
 $hemttPath --version
