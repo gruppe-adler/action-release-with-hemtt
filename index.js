@@ -19,29 +19,32 @@ function execHEMTT(args) {
 };
 
 async function run() {
+    // get input
+    const zipBuild = core.getInput('zip_build');
+    
     // log version
     await core.group('HEMTT Version', execHEMTT(['--version']));
-    
+
     // build release
     await core.group('Build mod', execHEMTT(['build', '--release', '--force']));
-    
-    let zipName = 'mod';
-    // template doesn't seem to work with the current version
-    // TODO: uncomment
-    // await execHEMTT(
-    //     ['template', '{{name}}_{{version}}'],
-    //     {
-    //         listeners: { stdout: (data) => { zipName += data.toString(); } }
-    //     }
-    // );
-    const zipPath = `./releases/${zipName}.zip`;
-            
-    // zip
-    await core.group('Zip release', execHEMTT(['zip', zipName]));
-    
-    // set outputs
-    core.setOutput('zip_name', zipName);
-    core.setOutput('zip_path', zipPath);
+
+    if(zipBuild) {
+        let zipName = '';
+        await execHEMTT(
+            ['var', '{{name}}_{{version}}'],
+            {
+                listeners: { stdout: (data) => { zipName += data.toString(); } }
+            }
+        );
+        const zipPath = `./releases/${zipName}.zip`;
+
+        // zip
+        await core.group('Zip release', execHEMTT(['zip', zipName]));
+
+        // set outputs
+        core.setOutput('zip_name', zipName);
+        core.setOutput('zip_path', zipPath);
+    }
 }
 
 try {

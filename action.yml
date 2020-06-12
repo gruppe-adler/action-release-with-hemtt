@@ -4,6 +4,12 @@ branding:
   icon: 'activity'  
   color: 'orange'
 
+inputs:
+  zip_build:
+      description: 'Zip the mod'
+      required: false
+      default: true
+
 outputs:
   zip_path:
     description: 'Relative path of packed mod'
