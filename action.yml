@@ -1,12 +1,12 @@
 name: 'Release with HEMTT'
 description: 'Build your mod with HEMTT.'
 branding:
-  icon: 'activity'  
+  icon: 'activity'
   color: 'orange'
 
 inputs:
   zip_build:
-      description: 'Zip the mod'
+      description: 'Zip the build'
       required: false
       default: true
 

@@ -21,13 +21,15 @@ function execHEMTT(args) {
 async function run() {
     // get input
     const zipBuild = core.getInput('zip_build');
-    
+
     // log version
     await core.group('HEMTT Version', execHEMTT(['--version']));
 
     // build release
     await core.group('Build mod', execHEMTT(['build', '--release', '--force']));
-
+    console.log("Debug:");
+    console.log(zipBuild);
+    console.log(zipBuild == true);
     if(zipBuild) {
         let zipName = '';
         await execHEMTT(
