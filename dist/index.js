@@ -951,7 +951,7 @@ const exec = __webpack_require__(986);
 const hemtt = join(__dirname, '../tools', (process.platform === 'linux' ? 'hemtt' : 'hemtt.exe') );
 
 /**
- * Returns async function, which executes HEMTT with given args and given options
+ * Execute HEMTT with given args
  * @param {string[]} args Hemtt args
  * @returns Promise which resolves in string of stdout of hemtt
  */
@@ -988,7 +988,7 @@ async function run() {
     };
 
     // find zip name
-    const zipName = await execHEMTT(['var', '{{name}}_{{version}}'])();
+    const zipName = await execHEMTT(['var', '{{name}}_{{version}}']);
     const zipPath = `./releases/${zipName}.zip`;
 
     // zip
@@ -999,12 +999,7 @@ async function run() {
     core.setOutput('zip_path', zipPath);
 }
 
-try {
-    run();
-} catch (err) {
-    core.setFailed(error.message);
-}
-
+run().catch(() => core.setFailed(error.message));
 
 
 /***/ }),

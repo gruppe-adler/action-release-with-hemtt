@@ -42,7 +42,7 @@ async function run() {
     };
 
     // find zip name
-    const zipName = await execHEMTT(['var', '{{name}}_{{version}}'])();
+    const zipName = await execHEMTT(['var', '{{name}}_{{version}}']);
     const zipPath = `./releases/${zipName}.zip`;
 
     // zip
@@ -53,9 +53,4 @@ async function run() {
     core.setOutput('zip_path', zipPath);
 }
 
-try {
-    run();
-} catch (err) {
-    core.setFailed(error.message);
-}
-
+run().catch(() => core.setFailed(error.message));
