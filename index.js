@@ -27,11 +27,13 @@ async function run() {
 
     // build release
     await core.group('Build mod', execHEMTT(['build', '--release', '--force']));
-    
+
     core.info("Debug");
     core.info(zipBuild);
     core.info(zipBuild == true);
     
+    await core.group('Debug mod', execHEMTT(['zipBuild' , 'zipBuild == true']));
+
     if(zipBuild) {
         let zipName = '';
         await execHEMTT(
