@@ -1091,11 +1091,20 @@ async function run() {
     // build release
     await core.group('Build mod', execHEMTT(['build', '--release', '--force']));
 
-    core.debug(core.getInput('zip_build'));
-    
+    // set release path output
+    let version = '';
+    await execHEMTT(
+        ['var', '{{version}}'],
+        {
+            listeners: { stdout: (data) => { version += data.toString(); } }
+        }
+    );
+    const releasePath = `./releases/${version}`;
+
+    core.setOutput('release_path', releasePath);
+
     // check whether we want to zip
     const zipBuild = core.getInput('zip_build').toLowerCase() === "true";
-    core.debug(zipBuild);
     if(!zipBuild) return;
 
     let zipName = '';
