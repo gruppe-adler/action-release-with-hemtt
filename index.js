@@ -14,6 +14,7 @@ function execHEMTT(args) {
         let stdout = '';
         try {
             await exec.exec(hemtt, args, { listeners: { stdout: (data) => { stdout += data.toString(); } } });
+            stdout = stdout.replace(/(\n)+$/i, '');
             resolve(stdout)
         } catch (err) {
             core.setFailed(error.message);
