@@ -8,10 +8,10 @@ const hemtt = join(__dirname, '../tools', (process.platform === 'linux' ? 'hemtt
  * Returns async function, which executes HEMTT with given args and given options
  * @param {*} args Hemtt args
  */
-function execHEMTT(args) {
+function execHEMTT(...args) {
     return async () => {
         try {
-            return exec.exec(hemtt, args);
+            return exec.exec(hemtt, ...args);
         } catch (err) {
             core.setFailed(error.message);
         }
@@ -27,21 +27,23 @@ async function run() {
     await core.group('Build mod', execHEMTT(['build', '--release', '--force']));
 
     // set release path output
-    let releasePath = './releases/';
-    await core.group('Version', execHEMTT(
+    let version = '';
+    await execHEMTT(
         ['var', '{{version}}'],
         {
             listeners: { stdout: (data) => { version += data.toString(); } }
         }
-    ));
-    await core.group('Debug', console.log(releasePath));
-
-    core.setOutput('release_path', releasePath);
+    );
+    core.setOutput('release_path', `./releases/${version}`);
 
     // check whether we want to zip
     const zipBuild = core.getInput('zip_build').toLowerCase() === "true";
-    if(!zipBuild) return;
+    if(!zipBuild) {
+        core.info('Skipping ZIP.')
+        return;
+    };
 
+    // find zip name
     let zipName = '';
     await execHEMTT(
         ['var', '{{name}}_{{version}}'],
