@@ -6,34 +6,32 @@ const hemtt = join(__dirname, '../tools', (process.platform === 'linux' ? 'hemtt
 
 /**
  * Returns async function, which executes HEMTT with given args and given options
- * @param {*} args Hemtt args
+ * @param {string[]} args Hemtt args
+ * @returns Promise which resolves in string of stdout of hemtt
  */
-function execHEMTT(...args) {
-    return async () => {
+function execHEMTT(args) {
+    return new Promise(async (resolve, reject) => {
+        let stdout = '';
         try {
-            return exec.exec(hemtt, ...args);
+            await exec.exec(hemtt, args, { listeners: { stdout: (data) => { stdout += data.toString(); } } });
+            resolve(stdout)
         } catch (err) {
             core.setFailed(error.message);
+            reject(err);
         }
-    }
+    });
 };
 
 async function run() {
 
     // log version
-    await core.group('HEMTT Version', execHEMTT(['--version']));
+    await core.group('HEMTT Version', () => execHEMTT(['--version']));
 
     // build release
-    await core.group('Build mod', execHEMTT(['build', '--release', '--force']));
+    await core.group('Build mod', () => execHEMTT(['build', '--release', '--force']));
 
     // set release path output
-    let version = '';
-    await execHEMTT(
-        ['var', '{{version}}'],
-        {
-            listeners: { stdout: (data) => { version += data.toString(); } }
-        }
-    );
+    const version = await execHEMTT(['var', '{{version}}']);
     core.setOutput('release_path', `./releases/${version}`);
 
     // check whether we want to zip
@@ -44,17 +42,11 @@ async function run() {
     };
 
     // find zip name
-    let zipName = '';
-    await execHEMTT(
-        ['var', '{{name}}_{{version}}'],
-        {
-            listeners: { stdout: (data) => { zipName += data.toString(); } }
-        }
-    );
+    const zipName = await execHEMTT(['var', '{{name}}_{{version}}'])();
     const zipPath = `./releases/${zipName}.zip`;
 
     // zip
-    await core.group('Zip release', execHEMTT(['zip', zipName]));
+    await core.group('Zip release', () => execHEMTT(['zip', zipName]));
 
     // set outputs
     core.setOutput('zip_name', zipName);
