@@ -31,8 +31,8 @@ async function run() {
     core.info("Debug");
     core.info(zipBuild);
     core.info(zipBuild == true);
-    
-    await core.group('Debug mod', execHEMTT(['zipBuild' , 'zipBuild == true']));
+
+    await core.group('Debug mod', execHEMTT([zipBuild, zipBuild == true]));
 
     if(zipBuild) {
         let zipName = '';
