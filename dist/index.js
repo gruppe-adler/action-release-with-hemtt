@@ -1092,14 +1092,14 @@ async function run() {
     await core.group('Build mod', execHEMTT(['build', '--release', '--force']));
 
     // set release path output
-    let version = '';
+    let releasePath = './releases/';
     await core.group('Version', execHEMTT(
         ['var', '{{version}}'],
         {
             listeners: { stdout: (data) => { version += data.toString(); } }
         }
     ));
-    const releasePath = `./releases/${version}/`;
+    await core.group('Debug', console.log(releasePath));
 
     core.setOutput('release_path', releasePath);
 
