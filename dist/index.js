@@ -1093,12 +1093,12 @@ async function run() {
 
     // set release path output
     let version = '';
-    await execHEMTT(
+    await core.group('Version', execHEMTT(
         ['var', '{{version}}'],
         {
             listeners: { stdout: (data) => { version += data.toString(); } }
         }
-    );
+    ));
     const releasePath = `./releases/${version}/`;
 
     core.setOutput('release_path', releasePath);
