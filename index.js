@@ -5,7 +5,7 @@ const exec = require('@actions/exec');
 const hemtt = join(__dirname, '../tools', (process.platform === 'linux' ? 'hemtt' : 'hemtt.exe') );
 
 /**
- * Returns async function, which executes HEMTT with given args and given options
+ * Execute HEMTT with given args
  * @param {string[]} args Hemtt args
  * @returns Promise which resolves in string of stdout of hemtt
  */
