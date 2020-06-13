@@ -19,8 +19,6 @@ function execHEMTT(args) {
 };
 
 async function run() {
-    // get input
-    const zipBuild = core.getInput('zip_build').toLowerCase() === "true";
 
     // log version
     await core.group('HEMTT Version', execHEMTT(['--version']));
@@ -28,29 +26,26 @@ async function run() {
     // build release
     await core.group('Build mod', execHEMTT(['build', '--release', '--force']));
 
-    core.info("Debug");
-    core.info(zipBuild);
-    core.info(zipBuild == true);
+    
+    // check whether we want to zip
+    const zipBuild = core.getInput('zip_build').toLowerCase() === "true";
+    if(!zipBuild) return;
 
-    await core.group('Debug mod', execHEMTT([zipBuild, zipBuild == true]));
+    let zipName = '';
+    await execHEMTT(
+        ['var', '{{name}}_{{version}}'],
+        {
+            listeners: { stdout: (data) => { zipName += data.toString(); } }
+        }
+    );
+    const zipPath = `./releases/${zipName}.zip`;
 
-    if(zipBuild) {
-        let zipName = '';
-        await execHEMTT(
-            ['var', '{{name}}_{{version}}'],
-            {
-                listeners: { stdout: (data) => { zipName += data.toString(); } }
-            }
-        );
-        const zipPath = `./releases/${zipName}.zip`;
+    // zip
+    await core.group('Zip release', execHEMTT(['zip', zipName]));
 
-        // zip
-        await core.group('Zip release', execHEMTT(['zip', zipName]));
-
-        // set outputs
-        core.setOutput('zip_name', zipName);
-        core.setOutput('zip_path', zipPath);
-    }
+    // set outputs
+    core.setOutput('zip_name', zipName);
+    core.setOutput('zip_path', zipPath);
 }
 
 try {
