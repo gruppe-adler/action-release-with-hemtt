@@ -26,9 +26,11 @@ async function run() {
     // build release
     await core.group('Build mod', execHEMTT(['build', '--release', '--force']));
 
+    core.info(core.getInput('zip_build'));
     
     // check whether we want to zip
     const zipBuild = core.getInput('zip_build').toLowerCase() === "true";
+    core.info(zipBuild);
     if(!zipBuild) return;
 
     let zipName = '';
