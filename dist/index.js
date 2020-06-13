@@ -1099,7 +1099,7 @@ async function run() {
             listeners: { stdout: (data) => { version += data.toString(); } }
         }
     );
-    const releasePath = `./releases/${version}`;
+    const releasePath = `./releases/${version}/`;
 
     core.setOutput('release_path', releasePath);
 
