@@ -54,4 +54,4 @@ async function run() {
     core.setOutput('zip_path', zipPath);
 }
 
-run().catch(() => core.setFailed(error.message));
+run().catch(err => core.setFailed(err.message));
