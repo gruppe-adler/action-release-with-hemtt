@@ -1,15 +1,23 @@
 name: 'Release with HEMTT'
 description: 'Build your mod with HEMTT.'
 branding:
-  icon: 'activity'  
+  icon: 'activity'
   color: 'orange'
+
+inputs:
+  zip_build:
+      description: 'Zip the build'
+      required: false
+      default: true
 
 outputs:
   zip_path:
     description: 'Relative path of packed mod'
   zip_name:
     description: 'Name of packed mod (without file extension)'
+  release_path:
+    description: 'Relative path of mod'
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'node12'
+  main: 'dist/index.js'

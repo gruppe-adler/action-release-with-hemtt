@@ -1,0 +1,24 @@
+{
+  "name": "action-release-with-hemtt",
+  "version": "1.0.0",
+  "description": "This builds your [HEMTT](https://github.com/synixebrett/HEMTT) mod and then zips it.",
+  "main": "main.js",
+  "scripts": {
+    "build": "ncc build index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:gruppe-adler/action-release-with-hemtt.git"
+  },
+  "keywords": [],
+  "author": "DerZade",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/exec": "^1.0.3",
+    "@actions/github": "^3.0.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.21.0"
+  }
+}
