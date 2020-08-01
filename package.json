@@ -1,6 +1,6 @@
 {
   "name": "action-release-with-hemtt",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "This builds your [HEMTT](https://github.com/synixebrett/HEMTT) mod and then zips it.",
   "main": "main.js",
   "scripts": {
