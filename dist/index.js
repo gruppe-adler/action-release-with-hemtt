@@ -963,7 +963,7 @@ function execHEMTT(args) {
             stdout = stdout.replace(/(\n)+$/i, '');
             resolve(stdout)
         } catch (err) {
-            core.setFailed(error.message);
+            core.setFailed(err.message);
             reject(err);
         }
     });
