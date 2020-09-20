@@ -8,7 +8,11 @@ inputs:
   zip_build:
       description: 'Zip the build'
       required: false
-      default: true
+      default: 'true'
+  cwd:
+      description: 'Working directory'
+      required: false
+      default: '.'
 
 outputs:
   zip_path:

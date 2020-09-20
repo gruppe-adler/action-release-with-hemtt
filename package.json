@@ -2,9 +2,10 @@
   "name": "action-release-with-hemtt",
   "version": "2.0.0",
   "description": "This builds your [HEMTT](https://github.com/synixebrett/HEMTT) mod and then zips it.",
-  "main": "main.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "ncc build index.js"
+    "build": "ncc build src/index.js",
+    "test": "jest --config jestconfig.json"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,8 @@
     "@actions/github": "^3.0.0"
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.21.0"
+    "@vercel/ncc": "^0.24.1",
+    "codecov": "^3.7.2",
+    "jest": "^26.4.2"
   }
 }
