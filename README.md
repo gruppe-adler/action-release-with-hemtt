@@ -11,6 +11,10 @@ This action builds your [HEMTT](https://github.com/synixebrett/HEMTT) mod and th
 This input is optional (Default: `true`)
 Whether the build should be zipped.
 
+### `cwd`
+This input is optional (Default: `.`)
+Working directory of *hemtt*.
+
 ## Outputs
 
 ### `release_path`
