@@ -1,3 +1,6 @@
+![tests](https://img.shields.io/github/workflow/status/gruppe-adler/action-release-with-hemtt/test?label=tests)
+[![codecov](https://codecov.io/gh/gruppe-adler/action-release-with-hemtt/branch/master/graph/badge.svg)](https://codecov.io/gh/gruppe-adler/action-release-with-hemtt)
+
 # action-release-with-hemtt
 
 This action builds your [HEMTT](https://github.com/synixebrett/HEMTT) mod and then zips it. You could then use that zip and attach it as an artifact or to a release.
@@ -7,6 +10,10 @@ This action builds your [HEMTT](https://github.com/synixebrett/HEMTT) mod and th
 ### `zip_build`
 This input is optional (Default: `true`)
 Whether the build should be zipped.
+
+### `cwd`
+This input is optional (Default: `.`)
+Working directory of *hemtt*.
 
 ## Outputs
 
