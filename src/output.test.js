@@ -22,4 +22,10 @@ describe('output', () => {
             expect(core.setOutput).toHaveBeenCalledWith('zip_path', 'fu');
         })
     });
+    describe('setModName', () => {
+        it('asks with the right key', () => {
+            output.setModName('fu');
+            expect(core.setOutput).toHaveBeenCalledWith('mod_name', 'fu');
+        })
+    });
 });

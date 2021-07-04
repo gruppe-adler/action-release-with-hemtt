@@ -20,6 +20,9 @@ Working directory of *hemtt*.
 ### `release_path`
 Relative path of released addon before it is zipped. (is equal to `./releases/<version>`)
 
+### `mod_name`
+Name of mod. (is equal to `modname` inside hemtt.toml)
+
 ### `zip_path`
 Relative path of zipped mod. Will be not set if input `zip_build` is `false`
 

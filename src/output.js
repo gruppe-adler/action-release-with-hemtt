@@ -9,3 +9,6 @@ module.exports.setZipPath = function (zipPath) {
 module.exports.setReleasePath = function (releasePath) {
     core.setOutput('release_path', releasePath);
 }
+module.exports.setModName = function (modName) {
+    core.setOutput('mod_name', modName);
+}
