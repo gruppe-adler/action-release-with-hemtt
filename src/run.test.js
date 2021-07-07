@@ -24,7 +24,7 @@ describe('run', () => {
             return Promise.resolve('myMod');
         })
         hemtt.modVar.mockImplementation((formatString) => {
-            return Promise.resolve(formatString.replace('{{name}}', 'myMod').replace('{{version}}', '1.2.3'));
+            return Promise.resolve(formatString.replace('{{name}}', 'myMod').replace('{{version}}', '1.2.3').replace('{{modname}}', 'my_mod'));
         })
     });
 
@@ -46,12 +46,14 @@ describe('run', () => {
             output.setReleasePath.mockClear();
             output.setZipName.mockClear();
             output.setZipPath.mockClear();
+            output.setModName.mockClear();
         })
 
         it('sets zip_name', () => {
             input.getZipBuild.mockReturnValue(true);
             return run().then(_ => {
                 expect(output.setReleasePath).toHaveBeenCalledWith(join('myCwd', 'releases', '1.2.3'));
+                expect(output.setModName).toHaveBeenCalledWith('my_mod');
                 expect(output.setZipName).toHaveBeenCalledWith('myMod_1.2.3');
                 expect(output.setZipPath).toHaveBeenCalledWith(join('myCwd', 'releases', 'myMod_1.2.3.zip'));
             })
@@ -60,6 +62,7 @@ describe('run', () => {
             input.getZipBuild.mockReturnValue(false);
             return run().then(_ => {
                 expect(output.setReleasePath).toHaveBeenCalledWith(join('myCwd', 'releases', '1.2.3'));
+                expect(output.setModName).toHaveBeenCalledWith('my_mod');
                 expect(output.setZipName).not.toHaveBeenCalled();
                 expect(output.setZipPath).not.toHaveBeenCalled();
             })

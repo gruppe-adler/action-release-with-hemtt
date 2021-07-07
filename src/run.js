@@ -3,7 +3,7 @@ const core = require('@actions/core');
 const hemtt = require('./hemtt');
 const getCwd = require('./input').getCwd;
 const getZipBuild = require('./input').getZipBuild
-const {setReleasePath, setZipName, setZipPath} = require('./output');
+const {setReleasePath, setZipName, setZipPath, setModName} = require('./output');
 
 module.exports = async function run() {
 
@@ -17,7 +17,9 @@ module.exports = async function run() {
 
     // set release path output
     const version = await hemtt.modGetVersion();
+    const modName = await hemtt.modVar('{{modname}}');
     setReleasePath(join(cwd, 'releases', version));
+    setModName(modName);
 
     if(!getZipBuild()) {
         core.info('Skipping ZIP.')
