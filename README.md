@@ -35,12 +35,12 @@ Name of packed mod (without file extension). Will be not set if input `zip_build
 steps:
 - uses: actions/checkout@master
 
-- uses: gruppe-adler/action-release-with-hemtt@master
+- uses: gruppe-adler/action-release-with-hemtt@v3
   id: build
 
 - run: echo 'Release ${{ steps.build.outputs.zip_name }} is ready.'
 
-- uses: actions/upload-artifact@master
+- uses: actions/upload-artifact@v3
   with:
     name: 'packed-mod'
     path: ${{ steps.build.outputs.zip_path }}
